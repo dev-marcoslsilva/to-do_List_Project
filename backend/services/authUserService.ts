@@ -16,7 +16,7 @@ export class AuthUserService {
 
       if (!user) throw new Error("Usuário ou senha incorretos");
 
-      const isPasswordCorrect = await bcrypt.compare(password, user.password);
+      const isPasswordCorrect = await bcrypt.compare(password, user.senha);
 
       if (!isPasswordCorrect)
         throw new Error("Usuário ou senha incorretos");
@@ -30,6 +30,7 @@ export class AuthUserService {
       return {user, token};
 
     } catch (error) {
+      console.error("ERRO DETALHADO NO LOGIN:", error);
       throw new Error("Não foi possível fazer login!");
     }
   }

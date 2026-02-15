@@ -19,16 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      id_task: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "Tasks",
-          key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-        allowNull: true
-      },
       login: {
         type: DataTypes.STRING(60),
         allowNull: false,
@@ -49,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      modelTable: "users"
     }
   );
   return User;
