@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.env
+api_teste.http
+*.log

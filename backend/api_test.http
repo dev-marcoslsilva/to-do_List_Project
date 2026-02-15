@@ -1,0 +1,10 @@
+### Cadastro de Usuário
+POST http://localhost:3000/newUser
+Content-Type: application/json
+
+{
+  "name": "Marcos Silva",
+  "login": "marcos@email.com",
+  "password": "Senha12345",
+  "how_much_tasks": 6
+}
