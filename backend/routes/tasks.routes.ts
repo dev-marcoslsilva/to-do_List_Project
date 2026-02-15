@@ -17,7 +17,7 @@ router.post('/tasks', tasksController.createTask);
 
 router.get('/tasks', tasksController.getAllTasks);
 router.get('/tasks/search', tasksController.getByName);
-router.get('tasks/daily', tasksController.getDailyTasks);
+router.get('/tasks/daily', tasksController.getDailyTasks);
 router.get('/tasks/special', tasksController.getOverdueOrFinalizedTasks);
 
 

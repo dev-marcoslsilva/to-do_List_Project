@@ -103,10 +103,14 @@ export class TasksService {
 
       //define as variáveis
 
-      const withDeadline = Math.trunc((dailyTasks * 6) / 10); // Quantas tarefas com prazo?
-      let withoutDeadline = dailyTasks - withDeadline;
-      let tasks = [dailyTasks];
-
+      const withDeadline = Math.ceil((dailyTasks.how_much_tasks * 6) / 10); // Quantas tarefas com prazo?
+      let withoutDeadline = dailyTasks.how_much_tasks - withDeadline;
+      let tasks = [dailyTasks.how_much_tasks];
+      
+      
+      console.log("Quantidade de tarefas: " + dailyTasks);
+      console.log("Limite de tarefas com prazo: " + withDeadline);
+      console.log("Limite de tarefas sem prazo: " + withoutDeadline);
       //busca todas as tarefas com e sem prazo
       const deadlineTasks = await Task.findAll({
         where: {
@@ -139,6 +143,7 @@ export class TasksService {
 
       return tasks;
     } catch (error) {
+      console.log("ERRO DETALHADO: " + error);
       throw new Error("Erro ao buscar as tarefas diárias!");
     }
   }
