@@ -1,0 +1,78 @@
+/* Definindo variáveis */
+
+:root{
+    --roxo: #A805F5;
+    --ciano: #05F581;
+    --amarelo-laranja: #F5A406;
+    --amarelo-escuro: #A07D38;
+    --roxo-escuro: #633D75;
+    --ciano-escuro: #0B6B4F;
+    --cianinho-escuro: #3D755A; 
+
+}
+
+
+
+body{
+    background-color: #633D75;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    height: 97vh;
+}
+
+.div_Favicon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32%;
+    height: 100%;
+    background-color: var(--ciano-escuro);
+    border-right: var(--roxo) solid 8px;
+}
+
+.div_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 65%;
+    border-left: #A805F5 solid 8px;
+}
+
+
+#login_input{
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+#password_input{
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+#login_button{
+    width: 30%;
+    height: 40px;
+    border-radius: 15px;
+    border: var(--cianinho-escuro) solid 4px;
+    background-color: var(--ciano);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register_and_password{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+}
