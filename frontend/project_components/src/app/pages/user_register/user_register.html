@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de usuário</title>
+  </head>
+  <body>
+    <div class="container_user_register_page">
+      <div class="container_user_register">
+        <h1 class="title">Cadastro de usuário</h1>
+        <form>
+          <div class="stilization_form">
+            <div class="labels_inputs">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" class="input" required />
+            </div>
+            <div class="password_and_confirmPassword">
+              <div class="labels_inputs">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" class="input" required /><br /><br />
+                <div class="labels_inputs">
+                  <label for="password">Confirme sua senha:</label>
+                  <input type="password" id="password" name="password" class="input" required /><br /><br />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="name">
+            <div class="labels_inputs">
+              <label for="username">Nome de usuário:</label>
+              <input type="text" id="username" name="username" required /><br /><br />
+            </div>
+          </div>
+          <div class="stilization_form">
+            <div class="tasks_per_day">
+
+              <div class="labels_inputs">
+                <label for="Tasks"
+                  >Quantidade de tarefas diárias</label
+                >
+                
+              </div>
+              <div id="tasks">
+                <input
+                type="range"
+                name="DailyTasks"
+                id="DailyTasksRange"
+                  min="5"
+                  max="25"
+                  value="5"
+                />
+                <p>25</p>
+              </div>
+            </div>
+
+
+            <button type="submit">Registrar-se</button>
+
+            <i></i>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

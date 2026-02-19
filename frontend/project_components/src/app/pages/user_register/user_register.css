@@ -1,0 +1,81 @@
+:root{
+    --roxo: #A805F5;
+    --ciano: #05F581;
+    --amarelo-laranja: #F5A406;
+    --amarelo-escuro: #A07D38;
+    --roxo-escuro: #633D75;
+    --ciano-escuro: #0B6B4F;
+    --cianinho-escuro: #3D755A; 
+
+}
+
+
+body{
+    height: 97vh;
+    color: white;
+    font-size: 18px;
+}
+
+.title{
+    color: white;
+}
+.container_user_register_page{
+    background-color: var(--ciano-escuro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.container_user_register{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 20px;
+    height: 80%;
+    width: 60%;
+    background-color: var(--roxo);
+    border: white solid 4px;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.labels_inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.stilization_form{
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+.name{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tasks_per_day{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#DailyTasksRange{
+    width: 60%;
+}
+
+#tasks{
+    background-color: white;
+    border: black solid 1px;
+    color : var(--roxo);
+    width: 30%;
+    height: 30%;
+}
+
+.input{
+    border: none;
+    border-radius: 6px;
+    height: 20%;
+}
