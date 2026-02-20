@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Tarefa</title>
+</head>
+<body>
+    <header class="">
+
+    </header>
+
+    <!-- Nessa div, guardaremos tudo -->
+    <div class="main_container">
+        
+        <form action="">
+            <div class="container_titles">
+                <div>
+                    <h1 class="teste">Crie sua nova tarefa!</h1>
+                    <h4>Preencha os campos solicitados abaixo para salvar sua nova atividade personalizada</h4>
+                </div>
+            </div>
+            <!-- esta div conterá o nome da tarefa. Ele é obrigatório -->
+             <div>
+                <div class="input_label">
+                    <label for="Nome">Nome:</label>
+                    <input type="text" id="taskName" placeholder="Nome da tarefa" required>
+                </div>
+             </div>
+
+             <!-- Esta div conterá tanto o prazo quanto o custo da tarefa e ambos são opcionais -->
+
+             <div class="cost_deadline_container">
+
+                <div class="input_label">
+                    <label for="Prazo">Prazo:</label>
+                    <input type="date" id="taskDeadline">
+                </div>
+
+                <div class="input_label">
+                    <label for="Custo">Custo:</label>
+                    <input type="date" id="taskCost">
+
+                </div>
+
+             </div>
+
+             <!-- Esta div conterá a url de uma possível imagem relacionada à tarefa. Ela é opcional. -->
+
+             <div>
+                <div class="input_label">
+                    <label for="Imagem">Imagem:</label>
+                    <input type="url" id="taskImage" placeholder="URL da imagem da tarefa">
+                </div>
+             </div>
+
+             <!-- esta div conterá a descrição da tarefa. Obrigatória -->
+
+            <div>
+                <div class="input_label">
+                    <label for="Descrição">Descrição:</label>
+                    <textarea id="taskDescription" placeholder="Descrição da tarefa" required></textarea>
+                </div>
+            </div>
+
+            <!-- esta div conterá o botão de enviar -->
+
+            <div>
+                <button id=btn_submit type="submit">Criar Tarefa</button>
+            </div>
+        </form>
+        
+    </div>
+</body>
+</html>

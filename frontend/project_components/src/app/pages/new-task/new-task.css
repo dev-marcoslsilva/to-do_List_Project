@@ -1,0 +1,114 @@
+:root{
+    --roxo: #A805F5;
+    --ciano: #05F581;
+    --amarelo-laranja: #F5A406;
+    --amarelo-escuro: #A07D38;
+    --roxo-escuro: #633D75;
+    --ciano-escuro: #0B6B4F;
+    --cianinho-escuro: #3D755A; 
+}
+
+body{
+    color: white;
+    background-color: var(--ciano-escuro);
+    font-size: 20px;
+}
+
+.main_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2%;
+    height: 80%;
+    width: 80%;
+    background-color: var(--roxo);
+    border-radius: 10px;
+    border: white solid 4px;
+}
+
+.container_titles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.input_label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cost_deadline_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#taskName{
+    width: 100vh;
+    height: 5vh;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#taskDeadline{
+    width: 60vh;
+    height: 5vh;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#taskCost{
+    width: 60vh;
+    height: 5vh;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#taskImage{
+    width: 70vh;
+    height: 5vh;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#taskDescription{
+    width: 70vh;
+    height: 15vh;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#btn_submit{
+    width: 45vh;
+    height: 5vh;
+    border-radius: 12px;
+    border: var(--ciano) solid 2px;
+    background-color: var(--ciano-escuro);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 6%;
+}
