@@ -34,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
       how_much_tasks: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      createdAt:{
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      updatedAt:{
+        type: DataTypes.DATE,
+        allowNull: false
       }
     },
     {

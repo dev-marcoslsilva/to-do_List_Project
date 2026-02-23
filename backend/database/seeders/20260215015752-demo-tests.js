@@ -12,7 +12,7 @@ module.exports = {
         description: 'Venceu há dois dias',
         status: 'Aberto',
         cost: '2026-02-12 10:00:00',
-        id_user: 1, // <--- Use o ID do seu usuário aqui!
+        id_user: 2, // <--- Use o ID do seu usuário aqui!
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -21,7 +21,7 @@ module.exports = {
         description: 'Venceu ontem',
         status: 'Aberto',
         cost: '2026-02-13 15:00:00',
-        id_user: 1,
+        id_user: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -31,7 +31,7 @@ module.exports = {
         description: 'Fazer agora de manhã',
         status: 'Aberto',
         cost: '2026-02-14 09:00:00',
-        id_user: 1,
+        id_user: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -40,7 +40,7 @@ module.exports = {
         description: 'Fazer no final do dia',
         status: 'Aberto',
         cost: '2026-02-14 18:00:00',
-        id_user: 1,
+        id_user: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -50,7 +50,7 @@ module.exports = {
         description: 'Já finalizada',
         status: 'Concluido',
         cost: '2026-02-14 12:00:00',
-        id_user: 1,
+        id_user: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }

@@ -34,7 +34,7 @@ export class UsersController{
                 login: user.login
             }
 
-            return res.status(201).json({user: userResponse, token});
+            return res.status(201).json({token, user: userResponse});
         } catch (error) {
             return res.status(400).json({error: error.message});
         }
