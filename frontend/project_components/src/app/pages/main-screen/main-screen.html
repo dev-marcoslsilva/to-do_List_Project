@@ -12,7 +12,7 @@
             <h3>Olá </h3> <h3 id="Saudation"> Clark kent</h3>
         </div>
         <div class="divTitle">
-            <h6>Hoje é: </h6> <h6 id="currentDate">20/02/2026</h6>
+            <h5>Hoje é: </h5> <h5 id="currentDate">20/02/2026</h5>
         </div>
     </header>
 
@@ -32,21 +32,29 @@
 
       <!-- Esta div conterá todo o lado direito da aplicação, de forma a deixar o meio livre -->
 
-      <div>
+      <div class="rightSide">
         <!-- Esta div conterá as tarefas especiais -->
          <div id="specialTasks">
-
+              <h5>Tarefas Especiais</h5>
+              <div id="specialTasksContainer">
+  
+              </div>
          </div>
 
          <!-- Aqui, o botão para inserir uma nova tarefas -->
 
-         <button></button>
+         <button id="btn_newTask">
+            <i class="fa-solid fa-plus"></i>
+         </button>
 
          
-         <div>
+         <div id="nextTask">
              <!-- Finalmente, a próxima tarefa do dia! -->
              <div id="nextTask">
-    
+                <h5>Próxima tarefa</h5>
+                <div id="nextTaskContainer">
+
+                </div>
              </div>
              <!-- Uma div para guardar os botões de pular tarefa ou conclui-la -->
              <div>

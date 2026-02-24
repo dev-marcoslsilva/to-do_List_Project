@@ -45,8 +45,8 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 20%;
-    height: 79vh;
+    width: 40%;
+    height: 78vh;
     background-color: var(--roxo-escuro);
     border-right: white solid 4px;
 }
@@ -55,7 +55,7 @@ header{
     border: none;
     border-radius: 10px;
     padding: 10px;
-    width: 45%;
+    width: 65%;
     font-size: 18px;
     height: 5vh;
 }
@@ -80,6 +80,37 @@ header{
     cursor: pointer;
 }
 
+.rightSide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+    padding: 5px;
+    border-left: white solid 4px;
+    background-color: var(--roxo-escuro);
+}
+
 .main_container{
     display: flex;
+}
+
+#specialTasks{
+    width: 100%;
+}
+
+#specialTasksContainer{
+    height: 25vh;
+    width: 100%;
+    background-color: darkgrey;
+}
+
+#nextTask{
+    width: 100%;
+}
+
+#nextTaskContainer{
+    height: 18vh;
+    width: 100%;
+    background-color: darkgrey;
 }

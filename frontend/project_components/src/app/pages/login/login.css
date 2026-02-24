@@ -21,6 +21,19 @@ body{
     height: 97vh;
 }
 
+form{
+    border: white, solid, 4px;
+    border-radius: 12px;
+    background-color: var(--roxo);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80vh;
+    gap: 15px;
+}
+
 .div_Favicon{
     display: flex;
     justify-content: center;
@@ -40,18 +53,9 @@ body{
     border-left: #A805F5 solid 8px;
 }
 
-.login_container{
-    border: white, solid, 4px;
-    border-radius: 12px;
-    background-color: var(--roxo);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 80vh;
-    gap: 15px;
-}
+/* .login_container{
+    
+} */
 
 .stilization_dots{
     display: flex;
