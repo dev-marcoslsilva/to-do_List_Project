@@ -20,7 +20,7 @@ header{
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 18vh;
+    height: 14vh;
     background-color: var(--roxo);
     border-bottom: white solid 4px;
 }
@@ -46,7 +46,7 @@ header{
     align-items: center;
     justify-content: space-around;
     width: 40%;
-    height: 78vh;
+    height: 82vh;
     background-color: var(--roxo-escuro);
     border-right: white solid 4px;
 }
@@ -102,7 +102,7 @@ header{
 #specialTasksContainer{
     height: 25vh;
     width: 100%;
-    background-color: darkgrey;
+    background-color: var(--amarelo-laranja);
 }
 
 #nextTask{
@@ -112,5 +112,41 @@ header{
 #nextTaskContainer{
     height: 18vh;
     width: 100%;
-    background-color: darkgrey;
+    background-color: var(--amarelo-laranja);
+}
+
+#btnNewTask{
+    width: 100%;
+    background-color: var(--ciano);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    border: white;
+    border-radius: 10px;
+    padding: 10px;
+    height: 2vph;
+    font-size: 18px;
+}
+
+.buttons_nextTask{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#btnBackTask, #btnNextTask{
+    color: white;
+    background-color: transparent;
+    border: none;
+    
+}
+
+#btn_concludeTask{
+    color: white;
+    background-color: var(--amarelo-escuro);
+    border: none;
+    border-radius: 10px;
+    height: 29px;
+    font-family: 'Reboto', sans-serif;
 }

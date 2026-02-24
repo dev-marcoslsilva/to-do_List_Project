@@ -9,10 +9,10 @@
   <body>
     <header>
         <div class="divTitle">
-            <h3>Olá </h3> <h3 id="Saudation"> Clark kent</h3>
+            <h3>Olá, {{ name }}</h3>
         </div>
         <div class="divTitle">
-            <h5>Hoje é: </h5> <h5 id="currentDate">20/02/2026</h5>
+            <h3>Hoje é: {{ currentDate }}</h3>
         </div>
     </header>
 
@@ -20,6 +20,14 @@
     <div class="main_container">
       <!-- esta div represntará a barra lateral do site, conetndo todas as tarefas -->
       <div id="sideBar">
+        
+        <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
+          <h4>{{t.title}}</h4>
+          <p>{{t.description}}</p>
+          <span [class]="'status-' + t.status">{{ t.status }}</span>
+          
+        </div>
+        <p *ngIf="tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
 
       </div>
 
@@ -43,8 +51,9 @@
 
          <!-- Aqui, o botão para inserir uma nova tarefas -->
 
-         <button id="btn_newTask">
-            <i class="fa-solid fa-plus"></i>
+         <button id="btnNewTask">
+          Nova Tarefa  
+          <i class="fa-solid fa-plus"></i>
          </button>
 
          
@@ -53,6 +62,19 @@
              <div id="nextTask">
                 <h5>Próxima tarefa</h5>
                 <div id="nextTaskContainer">
+
+                </div>
+
+                <div class="buttons_nextTask">
+                    <button id="btnBackTask">
+                      <i class="fa-solid fa-angles-left"></i>
+                    </button>
+
+                    <button id="btn_concludeTask">Concluir tarefa</button>
+
+                    <button id="btnNextTask">
+                      <i class="fa-solid fa-angles-right"></i>
+                    </button>
 
                 </div>
              </div>
