@@ -22,8 +22,10 @@
       <div id="sideBar">
         
         <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
-          <h4>{{t.name}}</h4>
-          <p>{{t.description}}</p>
+          <h4>{{ t.name }}</h4>
+          <div class="tasks_info">
+            <p>{{ t.description }}</p>
+          </div>
           <span [class]="'status-' + t.status">{{ t.status }}</span>
           
         </div>

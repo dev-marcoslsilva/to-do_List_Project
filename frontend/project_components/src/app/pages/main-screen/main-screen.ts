@@ -27,6 +27,7 @@ export class MainScreen implements OnInit {
     this.loadingSpecialTasks();
     this.loadingDailyTasks();
     this.searchConfig();
+    
   }
 
   loadingTasks() {
@@ -34,6 +35,7 @@ export class MainScreen implements OnInit {
       next: (data) => {
         this.tasks = data;
         console.log('Tarefas carregadas com sucesso');
+        console.log("Tarefas, no total: ", this.tasks.length);
       },
       error: (error) => {
         console.error('Erro ao carregar as tarefas', error);
@@ -46,6 +48,8 @@ export class MainScreen implements OnInit {
       next: (data) => {
         this.specialTasks = data;
         console.log('Tarefas especiais carregadas com sucesso');
+        console.log("Tarefas especiais: ", this.specialTasks.length);
+        
       },
       error: (error) => {
         console.error('Erro ao carregar as tarefas especiais', error);
@@ -58,6 +62,8 @@ export class MainScreen implements OnInit {
       next: (data) => {
         this.nextTask = data;
         console.log('Tarefas diárias carregadas com sucesso');
+        console.log("Tarefas diárias: ", this.nextTask.length);
+        
       },
       error: (error) => {
         console.error('Erro ao carregar as tarefas diárias', error);

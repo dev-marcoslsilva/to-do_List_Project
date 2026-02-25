@@ -9,19 +9,19 @@
     <div class="container_user_register_page">
       <div class="container_user_register">
         <h1 class="title">Cadastro de usuário</h1>
-        <form>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="stilization_form">
             <div class="labels_inputs">
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" class="input" required />
+              <input formControlName="login" type="email" id="email" name="email" class="input" required />
             </div>
             <div class="password_and_confirmPassword">
               <div class="labels_inputs">
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" class="input" required /><br /><br />
+                <input formControlName="password" type="password" id="password" name="password" class="input" required /><br /><br />
                 <div class="labels_inputs">
                   <label for="password">Confirme sua senha:</label>
-                  <input type="password" id="password" name="password" class="input" required /><br /><br />
+                  <input formControlName="confirmedPassword" type="password" id="password" name="password" class="input" required /><br /><br />
                 </div>
               </div>
             </div>
@@ -30,33 +30,35 @@
           <div class="name">
             <div class="labels_inputs">
               <label for="username">Nome de usuário:</label>
-              <input type="text" id="username" name="username" required /><br /><br />
+              <input formControlName="name" type="text" id="username" name="username" required /><br /><br />
             </div>
           </div>
           <div class="stilization_form">
             <div class="tasks_per_day">
 
               <div class="labels_inputs">
-                <label for="Tasks"
-                  >Quantidade de tarefas diárias</label
-                >
-                
+                <label for="Tasks">Quantidade de tarefas diárias</label>
               </div>
+
               <div id="tasks">
                 <input
+                formControlName="tasks"
                 type="range"
-                name="DailyTasks"
                 id="DailyTasksRange"
                   min="5"
                   max="25"
                   value="5"
+                  usemap="5"
+                (input)="updateRange($event)"
                 />
-                <p>25</p>
+                <span class="range_value" [style.left.%]="rangePercent">
+                  {{ registerForm.controls.tasks.value }}
+                </span>
               </div>
             </div>
 
 
-            <button type="submit">Registrar-se</button>
+            <button id="btnSubmit" type="submit">Registrar-se</button>
 
             <i></i>
           </div>

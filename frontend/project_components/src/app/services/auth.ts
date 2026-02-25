@@ -19,4 +19,8 @@ export class AuthService {
       })
     );
   }
+
+  newUser(login: string, password: string, name: string, how_much_tasks: number): Observable<any>{
+    return this.http.post<any>(`${this.API_URL}/newUser`, {login, password, name, how_much_tasks});
+  }
 }

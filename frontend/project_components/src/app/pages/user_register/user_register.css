@@ -16,6 +16,14 @@ body{
     font-size: 18px;
 }
 
+input{
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    height: 4vh;
+    font-size: 17px;
+}
+
 .title{
     color: white;
 }
@@ -49,6 +57,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: top;
+    height: 20vh;
 }
 
 .name{
@@ -58,8 +67,10 @@ body{
 
 .tasks_per_day{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 #DailyTasksRange{
@@ -67,15 +78,44 @@ body{
 }
 
 #tasks{
-    background-color: white;
-    border: black solid 1px;
-    color : var(--roxo);
-    width: 30%;
+    position: relative;
+    color : white;
+    width: 60%;
     height: 30%;
+    position: relative;
 }
 
-.input{
-    border: none;
+#tasks input[type="range"]{
+    width: 100%;
+}
+
+.range_value{
+    position: absolute;
+    top: -50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background: #1976d2;
+    color:white;
+    padding: 2px 6px;
     border-radius: 6px;
-    height: 20%;
+    font-size: 12;
+    white-space: nowrap;
+
+}
+
+#btnSubmit{
+    background-color: var(--ciano);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    height: 4vh;
+    width: 30%;
+    align-self: center;
+    cursor: pointer;
+}
+
+#btnSubmit:hover{
+    cursor: pointer;
+    background-color: var(--cianinho-escuro);
+    border: var(--ciano) solid 2px;
 }
