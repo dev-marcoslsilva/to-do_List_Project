@@ -12,6 +12,7 @@ body{
     color: white;
     background-color: var(--ciano-escuro);
     font-size: 20px;
+    overflow: hidden;
 }
 
 header{
@@ -40,15 +41,22 @@ header{
 }
 
 #sideBar{
-    overlay: hidden;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: top;
     width: 40%;
     height: 82vh;
     background-color: var(--roxo-escuro);
     border-right: white solid 4px;
+}
+
+.task{
+    width: 100%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    background-color: var(--ciano);
 }
 
 #searchBar{
@@ -97,12 +105,15 @@ header{
 
 #specialTasks{
     width: 100%;
+
 }
 
 #specialTasksContainer{
     height: 25vh;
     width: 100%;
-    background-color: var(--amarelo-laranja);
+    background-color: var(--roxo);
+    border-radius: 12px;
+    border: var(--amarelo-escuro) solid 2px;
 }
 
 #nextTask{
@@ -113,6 +124,8 @@ header{
     height: 18vh;
     width: 100%;
     background-color: var(--amarelo-laranja);
+    border-radius: 12px;
+    border: var(--amarelo-escuro) solid 2px;
 }
 
 #btnNewTask{

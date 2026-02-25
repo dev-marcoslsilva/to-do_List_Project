@@ -22,7 +22,7 @@
       <div id="sideBar">
         
         <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
-          <h4>{{t.title}}</h4>
+          <h4>{{t.name}}</h4>
           <p>{{t.description}}</p>
           <span [class]="'status-' + t.status">{{ t.status }}</span>
           
@@ -45,7 +45,14 @@
          <div id="specialTasks">
               <h5>Tarefas Especiais</h5>
               <div id="specialTasksContainer">
-  
+
+                <div class="specialTask" id="specialTask{{t.id}}" *ngFor= "let t of specialTasks">
+                  <h4>{{t.title}}</h4>
+                  <p>{{t.description}}</p>
+                  <span [class]="'status-' + t.status">{{ t.status }}</span>
+                </div>
+
+                <p *ngIf="specialTasks.length === 0"> Sem tarefas especiais no momento</p>
               </div>
          </div>
 
@@ -62,6 +69,14 @@
              <div id="nextTask">
                 <h5>Próxima tarefa</h5>
                 <div id="nextTaskContainer">
+
+                  <div class="nextTask" id="nextTask{{t.id}}" *ngFor= "let t of nextTask">
+                    <h4>{{t.title}}</h4>
+                    <p>{{t.description}}</p>
+                    <span [class]="'status-' + t.status">{{ t.status }}</span>
+                  </div>
+
+                  <p *ngIf="nextTask.length === 0"> Nenhuma tarefa para hoje! Aproveite seu dia :)</p>
 
                 </div>
 
