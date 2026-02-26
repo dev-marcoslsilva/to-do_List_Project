@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Task } from '../interfaces/tasks.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class TaskService {
     const params = new HttpParams().set('name' , term);
 
     return this.http.get<any[]>(`${this.API}/search`, { params });
+  }
+
+  createTask(task: any): Observable<Task>{
+    return this.http.post<Task>(this.API, task);
   }
 }

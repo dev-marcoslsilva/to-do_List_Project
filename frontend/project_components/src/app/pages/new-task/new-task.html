@@ -13,7 +13,7 @@
     <!-- Nessa div, guardaremos tudo -->
     <div class="main_container">
         
-        <form action="">
+        <form FormGroupName="taskForm" (ngSubmit)="onSubmit()"> >
             <div class="container_titles">
                 <div>
                     <h1 class="teste">Crie sua nova tarefa!</h1>
@@ -24,7 +24,7 @@
              <div>
                 <div class="input_label">
                     <label for="Nome">Nome:</label>
-                    <input type="text" id="taskName" placeholder="Nome da tarefa" required>
+                    <input [formGroup]="name" type="text" id="taskName" placeholder="Nome da tarefa" required>
                 </div>
              </div>
 
@@ -34,12 +34,12 @@
 
                 <div class="input_label">
                     <label for="Prazo">Prazo:</label>
-                    <input type="date" id="taskDeadline">
+                    <input [formGroup]="deadline" type="date" id="taskDeadline">
                 </div>
 
                 <div class="input_label">
                     <label for="Custo">Custo:</label>
-                    <input type="date" id="taskCost">
+                    <input [formGroup]="cost" type="date" id="taskCost">
 
                 </div>
 
@@ -50,7 +50,7 @@
              <div>
                 <div class="input_label">
                     <label for="Imagem">Imagem:</label>
-                    <input type="url" id="taskImage" placeholder="URL da imagem da tarefa">
+                    <input [formGroup]="urlImage" type="url" id="taskImage" placeholder="URL da imagem da tarefa">
                 </div>
              </div>
 
@@ -58,7 +58,7 @@
 
             <div>
                 <div class="input_label">
-                    <label for="Descrição">Descrição:</label>
+                    <label [formGroup]="description" for="Descrição">Descrição:</label>
                     <textarea id="taskDescription" placeholder="Descrição da tarefa" required></textarea>
                 </div>
             </div>

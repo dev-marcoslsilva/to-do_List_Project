@@ -17,15 +17,22 @@ body{
     overflow: hidden;
 }
 
-header{
+nav{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 14vh;
     background-color: var(--roxo);
     border-bottom: white solid 4px;
+}
+
+#logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
 }
 
 .divTitle{
@@ -65,7 +72,7 @@ header{
     border-right: white solid 4px;
 }
 
-.task{
+.task, .specialTask{
     width: 90%;
     margin-top: 3%;
     margin-bottom: 3%;
@@ -73,6 +80,10 @@ header{
     border: white solid 2px;
     border-radius: 12px;
     padding: 5px;
+}
+
+.container_tasks{
+    width: 100%;
 }
 
 #searchBar{
@@ -113,6 +124,13 @@ header{
     padding: 5px;
     border-left: white solid 4px;
     background-color: var(--roxo-escuro);
+}
+
+
+
+#specialTasksContainer{
+    display: flex;
+    overflow: auto;
 }
 
 .main_container{

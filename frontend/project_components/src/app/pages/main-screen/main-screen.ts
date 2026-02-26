@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task';
 import { CommonModule } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { distinctUntilChanged, debounceTime } from 'rxjs';
+import { distinctUntilChanged, debounceTime, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-main-screen',
@@ -14,8 +14,9 @@ export class MainScreen implements OnInit {
   tasks: any[] = [];
   specialTasks: any[] = [];
   nextTask: any[] = [];
-  name: String = localStorage.getItem('name') || 'seja bem vindo!';
+  name: String = localStorage.getItem('Name')? localStorage.getItem('Name')! : 'seja bem vindo!';
   currentDate: Date = new Date();
+  loading: boolean = true;
 
   searchControl = new FormControl('');
   suggestons: any[] = [];
@@ -23,19 +24,22 @@ export class MainScreen implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('token'));
     this.loadingTasks();
     this.loadingSpecialTasks();
     this.loadingDailyTasks();
     this.searchConfig();
-    
   }
 
   loadingTasks() {
+    this.loading = true;
     this.taskService.getTasks().subscribe({
       next: (data) => {
         this.tasks = data;
         console.log('Tarefas carregadas com sucesso');
         console.log("Tarefas, no total: ", this.tasks.length);
+        this.loading = false
+        console.log("loading: ", this.loading);
       },
       error: (error) => {
         console.error('Erro ao carregar as tarefas', error);

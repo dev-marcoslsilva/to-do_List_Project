@@ -8,28 +8,44 @@
   </head>
   <body>
     <header>
-        <div class="divTitle">
-            <h3>Olá, {{ name }}</h3>
+      <nav>
+        <div>
+            <img src="../../../../public/Logo_img.png" alt="Logo">
         </div>
-        <div class="divTitle">
-            <h3>Hoje é: {{ currentDate }}</h3>
+        <div class="nav_infos">
+          <div class="divTitle">
+              <h3>Olá, {{ name }}</h3>
+          </div>
+          <div class="divTitle">
+              <h3>Hoje é: {{ currentDate }}</h3>
+          </div>
         </div>
+
+        <div class="nav_buttons">
+          <button id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+      </nav>
     </header>
 
     <!-- Nesta div, estará quase todo o site -->
     <div class="main_container">
       <!-- esta div represntará a barra lateral do site, conetndo todas as tarefas -->
       <div id="sideBar">
-        
-        <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
-          <h4>{{ t.name }}</h4>
-          <div class="tasks_info">
-            <p>{{ t.description }}</p>
-          </div>
-          <span [class]="'status-' + t.status">{{ t.status }}</span>
-          
+
+        <div *ngIf="loading === false" class="loader">
+          <p>Carregando tarefas...</p>
         </div>
-        <p *ngIf="tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
+
+        <div class="container_tasks" *ngIf="loading === true && tasks.length > 0">
+          <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
+            <h4>{{ t.name }}</h4>
+            <div class="tasks_info">
+              <p>{{ t.description }}</p>
+            </div>
+            <span [class]="'status-' + t.status">{{ t.status }}</span>
+          </div>
+        </div>
+        <p *ngIf="loading === true && tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
 
       </div>
 
@@ -47,11 +63,16 @@
          <div id="specialTasks">
               <h5>Tarefas Especiais</h5>
               <div id="specialTasksContainer">
+                <div class="container_tasks" *ngIf="!loading">
 
-                <div class="specialTask" id="specialTask{{t.id}}" *ngFor= "let t of specialTasks">
-                  <h4>{{t.title}}</h4>
-                  <p>{{t.description}}</p>
-                  <span [class]="'status-' + t.status">{{ t.status }}</span>
+                  <div class="specialTask" id="specialTask{{t.id}}" *ngFor= "let t of specialTasks">
+                    <h4>{{t.name}}</h4>
+                    <div class="tasks_info">
+                      <p>{{t.description}}</p>
+                    </div>
+                    <span [class]="'status-' + t.status">{{ t.status }}</span>
+                  </div>
+
                 </div>
 
                 <p *ngIf="specialTasks.length === 0"> Sem tarefas especiais no momento</p>
