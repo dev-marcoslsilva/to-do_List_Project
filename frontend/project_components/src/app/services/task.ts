@@ -10,6 +10,10 @@ export class TaskService {
   private readonly API = "http://localhost:3000/tasks";
 
   constructor(private http: HttpClient){}
+  
+  createTask(task: any): Observable<Task>{
+    return this.http.post<Task>(this.API, task);
+  }
 
   getTasks(){
     return this.http.get<any[]>(this.API);
@@ -30,7 +34,16 @@ export class TaskService {
     return this.http.get<any[]>(`${this.API}/search`, { params });
   }
 
-  createTask(task: any): Observable<Task>{
-    return this.http.post<Task>(this.API, task);
+  putTask(id: number, task: any): Observable<Task>{
+    return this.http.put<Task>(`${this.API}/${id}`, {id, task});
   }
+
+  putStatus(id: number): Observable<Task>{
+    return this.http.put<Task>(`${this.API}/updateSatus/${id}`, { id });
+  }
+  
+  deleteTask(id: number): Observable<void>{
+    return this.http.delete<void>(`${this.API}/${id}`);
+  }
+
 }

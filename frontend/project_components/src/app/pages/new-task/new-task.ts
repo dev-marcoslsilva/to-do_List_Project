@@ -40,13 +40,15 @@ export class NewTask {
       this.taskService.createTask(taskReq).subscribe({
         next: () => {
           console.log('Task created successfully');
+          alert("Tarefa criada com sucesso!");
         },
         error: (error) => {
           console.error('Error creating task', error);
+          alert("Erro ao criar tarefa! Verifique os campos obrigatórios");
         }
       })
       // After saving the task, navigate back to the task list
-      this.router.navigate(['/tasks']);
+      this.router.navigate(['/Dashboard']);
     }
   }
 } 

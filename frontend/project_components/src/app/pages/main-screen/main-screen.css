@@ -35,6 +35,12 @@ nav{
     height: 50px;
 }
 
+.nav_infos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .divTitle{
     display: inline-flex;
     font-size: 12px;
@@ -48,7 +54,8 @@ nav{
     width: 100%;
     background-color: white;
     color: black;
-    border-radius: 12px;
+    border-radius: 16px;
+    max-height: 12vh;
 }
 
 .search_bar_div{
@@ -56,8 +63,9 @@ nav{
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 5vh;
+    height: 100%;
     padding: 15px;
+    background-color: navy;
 }
 
 #sideBar{
@@ -82,6 +90,30 @@ nav{
     padding: 5px;
 }
 
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btn_aux{
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    color: var(--branco);
+}
+
+.btn_aux:hover{
+    color: var(--cianinho-escuro);
+    cursor: pointer;
+}
+
+.btns_tasks{
+    display: flex;
+}
+
 .container_tasks{
     width: 100%;
 }
@@ -94,6 +126,38 @@ nav{
     font-size: 18px;
     height: 5vh;
 }
+
+.suggestion_search{
+    position: absolute;
+    top: 100%;
+    /* Cola no fundo do input */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 5px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    /* Fica por cima de tudo */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    color: teal;
+}
+
+.suggestions-list li {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #333;
+  }
+  
+  .suggestions-list li:hover {
+    background-color: #f5f5f5;
+    color: #633D75; /* Seu roxo */
+  }
 
 #searchBar:focus{
     outline: none;
@@ -173,6 +237,7 @@ nav{
     padding: 10px;
     height: 2vph;
     font-size: 18px;
+    text-decoration: none;
 }
 
 .buttons_nextTask{

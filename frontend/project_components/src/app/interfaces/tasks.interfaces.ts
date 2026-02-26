@@ -5,4 +5,5 @@ export interface Task{
     deadline: Date;
     cost: string;
     urlImage: string;
+    id_user: number;
 }

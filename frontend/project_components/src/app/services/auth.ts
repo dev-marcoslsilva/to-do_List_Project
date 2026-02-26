@@ -23,4 +23,8 @@ export class AuthService {
   newUser(login: string, password: string, name: string, how_much_tasks: number): Observable<any>{
     return this.http.post<any>(`${this.API_URL}/newUser`, {login, password, name, how_much_tasks});
   }
+
+  updatePassword(login:string, password: string): Observable<any>{
+    return this.http.put<any>(`${this.API_URL}/users/password`, {login, password});
+  }
 }

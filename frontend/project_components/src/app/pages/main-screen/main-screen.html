@@ -29,31 +29,57 @@
 
     <!-- Nesta div, estará quase todo o site -->
     <div class="main_container">
+
       <!-- esta div represntará a barra lateral do site, conetndo todas as tarefas -->
       <div id="sideBar">
 
-        <div *ngIf="loading === false" class="loader">
+        <div *ngIf="loading === true" class="loader">
           <p>Carregando tarefas...</p>
         </div>
 
-        <div class="container_tasks" *ngIf="loading === true && tasks.length > 0">
+        <div class="container_tasks" *ngIf="loading === false && tasks.length > 0">
           <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
-            <h4>{{ t.name }}</h4>
+            <div class="title">
+
+              <h4>{{ t.name }}</h4>
+
+              <div class="btns_tasks">
+                <button class="btn_aux">
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+    
+                <button class="btn_aux">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+
+            </div>
+
             <div class="tasks_info">
-              <p>{{ t.description }}</p>
+              <p *ngIf="editMode === false">{{ t.description }}</p>
+              <textarea *ngIf="editMode === true" name="" id="">{{ t.editDescription }}</textarea>
             </div>
             <span [class]="'status-' + t.status">{{ t.status }}</span>
           </div>
         </div>
-        <p *ngIf="loading === true && tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
+        <p *ngIf="loading === false && tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
 
       </div>
 
       <!-- aqui, se localiza a barra de pesquisa do site, onde se pode verificar uma tarefa -->
 
       <div class="search_bar_div">
-        <input type="text" name="" placeholder="Encontre uma tarefa..." id="searchBar">
+        <input [formControl]="searchControl" id="searchBar" type="text" placeholder="Encontre uma tarefa..." id="searchBar">
+        <div class="suggestion_search">
+          <div *ngIf="suggestons.length > 0" class="suggestions">
+            <ul>
+              <li *ngFor="let s of suggestons" (click)="selectSuggestion(suggestons)">{{ s.name }}</li>
+            </ul>
+          </div>
+
+        </div>
         <button id="btnSerach"><i class="fa-solid fa-magnifying-glass"></i></button>
+
       </div>
 
       <!-- Esta div conterá todo o lado direito da aplicação, de forma a deixar o meio livre -->
@@ -66,7 +92,20 @@
                 <div class="container_tasks" *ngIf="!loading">
 
                   <div class="specialTask" id="specialTask{{t.id}}" *ngFor= "let t of specialTasks">
-                    <h4>{{t.name}}</h4>
+                    <div class="title">
+
+                      <h4>{{ t.name }}</h4>
+        
+                      <div class="btns_tasks">
+                        <button class="btn_aux">
+                          <i class="fa-solid fa-pencil"></i>
+                        </button>
+            
+                        <button class="btn_aux">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                      </div>
                     <div class="tasks_info">
                       <p>{{t.description}}</p>
                     </div>
@@ -81,10 +120,10 @@
 
          <!-- Aqui, o botão para inserir uma nova tarefas -->
 
-         <button id="btnNewTask">
+         <a href="/newTask" id="btnNewTask">
           Nova Tarefa  
           <i class="fa-solid fa-plus"></i>
-         </button>
+         </a>
 
          
          <div id="nextTask">
@@ -93,10 +132,10 @@
                 <h5>Próxima tarefa</h5>
                 <div id="nextTaskContainer">
 
-                  <div class="nextTask" id="nextTask{{t.id}}" *ngFor= "let t of nextTask">
-                    <h4>{{t.title}}</h4>
-                    <p>{{t.description}}</p>
-                    <span [class]="'status-' + t.status">{{ t.status }}</span>
+                  <div class="nextTask" id="nextTask{{current_id}}" >
+                    <h4>{{current_name}}</h4>
+                    <p>{{current_description}}</p>
+                    <span >{{ current_status }}</span>
                   </div>
 
                   <p *ngIf="nextTask.length === 0"> Nenhuma tarefa para hoje! Aproveite seu dia :)</p>
@@ -104,13 +143,13 @@
                 </div>
 
                 <div class="buttons_nextTask">
-                    <button id="btnBackTask">
+                    <button id="btnBackTask" (click)="onTaskToggledDown()">
                       <i class="fa-solid fa-angles-left"></i>
                     </button>
 
                     <button id="btn_concludeTask">Concluir tarefa</button>
 
-                    <button id="btnNextTask">
+                    <button (click)="onTaskToggledUp()" id="btnNextTask">
                       <i class="fa-solid fa-angles-right"></i>
                     </button>
 
