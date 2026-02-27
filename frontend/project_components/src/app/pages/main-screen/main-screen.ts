@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { distinctUntilChanged, debounceTime, forkJoin } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-main-screen',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './main-screen.html',
   styleUrl: './main-screen.css',
 })
@@ -20,6 +20,14 @@ export class MainScreen implements OnInit {
   loading: boolean = true;
 
   searchControl = new FormControl('');
+  editName = new FormControl('');
+  editDescription = new FormControl('');
+  editDeadline = new FormControl();
+  editCost = new FormControl();
+
+  editTaskId: number | null = null;
+
+
   suggestons: any[] = [];
   
   currentIndex: number = 0;
@@ -32,8 +40,8 @@ export class MainScreen implements OnInit {
   current_id: number = 0;
 
   editMode: boolean = false;
-  editDescription: String = '';
-  
+  newName: string = '';
+
   constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -155,5 +163,53 @@ export class MainScreen implements OnInit {
 
       console.log('Valor atual de currentIndex:', this.currentIndex);
     }
+  }
+
+  onEditMode(id: number){
+    this.editTaskId = id;
+    this.editName = this.nextTask.find((task) => task.id === id)?.name || '';
+    this.editCost = this.nextTask.find((task) => task.id === id)?.cost || '';
+    this.editDeadline = this.nextTask.find((task) => task.id === id)?.deadline || '';
+    this.editDescription = this.nextTask.find((task) => task.id === id)?.description || '';
+    //por que não  this.editDescription = this.nextTask[id].description || ''; ?????????
+  }
+
+  onDeleteTask(){
+    alert("Tem certeza que deseja")
+  }
+
+  onSubmitEdit(id:number){
+    console.log("Cliquei no Botão");
+
+    const updatedTask = {
+      id: id,
+      name: this.editName,
+      deadline: this.editDeadline,
+      cost: this.editCost,
+      description: this.editDescription
+    };
+
+    this.taskService.putTask(updatedTask.id, updatedTask).subscribe({
+      next: (res) => {
+        console.log('Tarefa atualizada com sucesso', res);
+        // Atualize a tarefa na lista local
+        const index = this.nextTask.findIndex(task => task.id === id);
+        if (index !== -1) {
+          this.nextTask[index] = res;
+          this.cdr.detectChanges(); // Força a atualização da tela
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao atualizar a tarefa', error);
+      }
+    });
+
+    this.editTaskId = null;
+  }
+
+
+  onCancelEdit(){
+    this.editTaskId = null;
+    
   }
 }

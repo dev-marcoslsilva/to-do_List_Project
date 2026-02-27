@@ -37,14 +37,15 @@
           <p>Carregando tarefas...</p>
         </div>
 
-        <div class="container_tasks" *ngIf="loading === false && tasks.length > 0">
-          <div class="task" id="task{{t.id}}" *ngFor= "let t of tasks">
+        <div class="container_tasks" *ngFor= "let t of tasks">
+          <div class="task" id="task{{t.id}}" *ngIf="loading === false && tasks.length > 0">
             <div class="title">
 
-              <h4>{{ t.name }}</h4>
+              <h4 *ngIf="editTaskId != t.id">{{ t.name }}</h4>
+              <input *ngIf="editTaskId === t.id" type="text" name="" id="" [(ngModel)]="editName">
 
               <div class="btns_tasks">
-                <button class="btn_aux">
+                <button (click)="onEditMode(t.id)" class="btn_aux">
                   <i class="fa-solid fa-pencil"></i>
                 </button>
     
@@ -56,10 +57,26 @@
             </div>
 
             <div class="tasks_info">
-              <p *ngIf="editMode === false">{{ t.description }}</p>
-              <textarea *ngIf="editMode === true" name="" id="">{{ t.editDescription }}</textarea>
+              <p *ngIf="editTaskId !== t.id">{{ t.description }}</p>
+              <textarea *ngIf="editTaskId === t.id" name="" id="" [(ngModel)]="editDescription" ></textarea>
             </div>
             <span [class]="'status-' + t.status">{{ t.status }}</span>
+
+            <div *ngIf="editTaskId === t.id">
+              <input type="date" [(ngModel)]="editDeadline" id="inputDeadline">
+              <input type="text" [(ngModel)]=" editCost" id="inputCost">
+            </div>
+
+            <div *ngIf="editTaskId === t.id" class="edit_buttons">
+              <button id="btnSaveEdit" (click)="onSubmitEdit(t.id)">
+                <i class="fa-solid fa-floppy-disk"></i>
+              </button>
+
+              <button id="btnCancelEdit" (click)="onCancelEdit()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+
+            </div>
           </div>
         </div>
         <p *ngIf="loading === false && tasks.length === 0">Nenhuma tarefa encontrada. Adicione algumas para vê-las aqui!</p>
