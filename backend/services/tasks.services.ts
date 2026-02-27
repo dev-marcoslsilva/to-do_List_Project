@@ -104,13 +104,8 @@ export class TasksService {
       //define as variáveis
 
       const withDeadline = Math.ceil((dailyTasks.how_much_tasks * 6) / 10); // Quantas tarefas com prazo?
-      let withoutDeadline = dailyTasks.how_much_tasks - withDeadline;
       let tasks = [dailyTasks.how_much_tasks];
-      
-      
-      console.log("Quantidade de tarefas: " + dailyTasks);
-      console.log("Limite de tarefas com prazo: " + withDeadline);
-      console.log("Limite de tarefas sem prazo: " + withoutDeadline);
+    
       //busca todas as tarefas com e sem prazo
       const deadlineTasks = await Task.findAll({
         where: {
@@ -123,20 +118,25 @@ export class TasksService {
         order: [["deadline", "ASC"]],
         limit: withDeadline,
       });
+      
+      tasks = [...deadlineTasks];
+      const remainingSlots = dailyTasks.how_much_tasks - tasks.length;
+      
+     const withoutDeadline = remainingSlots;
 
       const noDeadlineTasks = await Task.findAll({
         where: {
           id_user: userId,
-          deadline: null,
+          deadline: {
+            [db.Sequelize.Op.is]: null
+          },
           status: "Aberto",
         },
         order: [["createdAt", "ASC"]],
         limit: withoutDeadline,
       });
-
-      tasks = [...deadlineTasks];
-
-      const remainingSlots = dailyTasks - tasks.length;
+      
+      
       const additionalTasks = noDeadlineTasks.slice(0, remainingSlots);
 
       tasks = [...deadlineTasks, ...additionalTasks];
@@ -156,7 +156,7 @@ export class TasksService {
         where: {
           id_user: userId,
           [db.Sequelize.Op.or]: [
-            { status: "Concluída" }, // primeira condição
+            { status: "Concluído" }, // primeira condição
 
             {
               status: { [db.Sequelize.Op.ne]: "Aberto" }, //Segunda condição
