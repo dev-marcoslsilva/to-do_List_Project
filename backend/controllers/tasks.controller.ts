@@ -12,7 +12,7 @@ export class TasksController{
             const userId = req.userId;
             const taskData = req.body;
 
-            const newTask = await tasksService.CreateTaks(userId , taskData) // por que um objeto?
+            const newTask = await tasksService.CreateTaks(userId , taskData);
 
             return res.status(201).json(newTask);
         } catch (error: any) {
@@ -101,7 +101,7 @@ export class TasksController{
         try {
             const userId = req.userId;
             const {taskId} = req.params;
-            const taskData = req.body;
+            const taskData = req.body.task;
 
             const updatedTask = await updateGeneralTasks.putGeneralDatas(Number(taskId), userId, taskData);
 
@@ -118,7 +118,7 @@ export class TasksController{
             const userId = req.userId;
             const {taskId} = req.params;
 
-            await deleteTask.deleteTask(taskId, userId);
+            await deleteTask.deleteTask(Number(taskId), userId);
 
             return res.status(204).send();
         } catch (error) {

@@ -216,12 +216,12 @@ export class TasksService {
         },
       });
 
-      if (!taskForUpdate) throw new Error("Tarefa não encontrada!");
+      if (!taskForUpdate) throw new Error("Tarefa não encontrada!", error);
 
       const isupdatedTask = await taskForUpdate.update(data);
       return isupdatedTask;
     } catch (error) {
-      throw new Error("Não foi possível atualizar os dados dessa tarefa!");
+      throw new Error("Não foi possível atualizar os dados dessa tarefa!: ", error);
     }
   }
 
@@ -244,7 +244,7 @@ export class TasksService {
       return {deleted: true};
       
     } catch (error) {
-      throw new Error("Não foi possível apagar a tarefa!");
+      throw new Error("Não foi possível apagar a tarefa!", error);
       
     }
   }

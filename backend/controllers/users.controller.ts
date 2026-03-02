@@ -58,11 +58,10 @@ export class UsersController{
     async updatePassword(req: Request, res: Response){
         const userUpdate = new ServicesUsers;
 
-        try {
-            const id = req.userId;
-            const {newPassword} = req.body;
+        try { 
+            const {login, newPassword, newPasswordConfirmed} = req.body;
 
-            await userUpdate.updateUserPassword(id, newPassword);
+            await userUpdate.updateUserPassword(login, newPassword, newPasswordConfirmed);
 
             return res.status(200).json({message: "Senha atualizada com sucesso!"});
         } catch (error) {

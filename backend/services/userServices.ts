@@ -20,6 +20,16 @@ export class ServicesUsers {
         throw new Error("Não é permitido criar um usuário sem login ou senha!");
       }
 
+      const existingUser = await User.findOne({
+        where : {
+          login : data.login
+        }
+      });
+
+      if(existingUser)
+        throw new Error("Já existe um usuário cadastrado com esse e-mail!");
+        
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if(!emailRegex.test(data.login)) throw new Error("E-mail inválido!");
@@ -65,12 +75,12 @@ export class ServicesUsers {
     }
   }
 
-  async updateUserPassword(userId: number, newPassword: string) {
+  async updateUserPassword(login: string, newPassword: string, newPasswordConfirmed: string) {
 
     try {
       const user = await User.findOne({
         where: {
-          id: userId,
+          login
         },
       });
   
@@ -81,6 +91,9 @@ export class ServicesUsers {
         throw new Error(
           "Não é permitido criar uma nova senha com menos de 8 caracteres!"
         );
+
+      if (newPassword !== newPasswordConfirmed)
+        throw new Error("As senhas não coincidem! Impossível atualizar senha!");
   
       const newHashedPassord = await bcrypt.hash(newPassword, 10);
   
