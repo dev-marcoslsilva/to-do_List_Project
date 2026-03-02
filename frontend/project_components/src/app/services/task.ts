@@ -39,10 +39,10 @@ export class TaskService {
   }
 
   putStatus(id: number): Observable<Task>{
-    return this.http.put<Task>(`${this.API}/updateSatus/${id}`, { id });
+    return this.http.put<Task>(`${this.API}/updateStatus/${id}`, { id });
   }
   
-  deleteTask(id: number): Observable<void>{
+  deleteTask(id: number): Observable<any>{
     return this.http.delete<void>(`${this.API}/${id}`);
   }
 

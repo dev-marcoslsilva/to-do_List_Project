@@ -17,7 +17,7 @@
               <h3>Olá, {{ name }}</h3>
           </div>
           <div class="divTitle">
-              <h3>Hoje é: {{ currentDate }}</h3>
+              <h3>Hoje é: {{ currentDate | date: 'dd/MM/yyyy HH:mm:ss'}}</h3>
           </div>
         </div>
 
@@ -41,15 +41,16 @@
           <div class="task" id="task{{t.id}}" *ngIf="loading === false && tasks.length > 0">
             <div class="title">
 
-              <h4 *ngIf="editTaskId != t.id">{{ t.name }}</h4>
-              <input *ngIf="editTaskId === t.id" type="text" name="" id="" [(ngModel)]="editName">
+              <h4 *ngIf="editTaskId != t.id && t.deadline < currentDate">{{ t.name }}</h4>
+              <h4 class="red" *ngIf="editTaskId != t.id && t.deadline >= currentDate"> {{ t.name }} laka</h4>
+              <input *ngIf="editTaskId === t.id" type="text" name="" id="" [(ngModel)]="t.name">
 
               <div class="btns_tasks">
                 <button (click)="onEditMode(t.id)" class="btn_aux">
                   <i class="fa-solid fa-pencil"></i>
                 </button>
     
-                <button class="btn_aux">
+                <button (click)="onDeleteTask(t.id)" class="btn_aux">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
@@ -58,13 +59,13 @@
 
             <div class="tasks_info">
               <p *ngIf="editTaskId !== t.id">{{ t.description }}</p>
-              <textarea *ngIf="editTaskId === t.id" name="" id="" [(ngModel)]="editDescription" ></textarea>
+              <textarea *ngIf="editTaskId === t.id" name="" id="" [(ngModel)]="t.description" ></textarea>
             </div>
             <span [class]="'status-' + t.status">{{ t.status }}</span>
 
-            <div *ngIf="editTaskId === t.id">
-              <input type="date" [(ngModel)]="editDeadline" id="inputDeadline">
-              <input type="text" [(ngModel)]=" editCost" id="inputCost">
+            <div class="dates_container" *ngIf="editTaskId === t.id">
+              <input type="date" [(ngModel)]="t.deadline" id="inputDeadline">
+              <input type="date" [(ngModel)]=" t.cost" id="inputCost">   
             </div>
 
             <div *ngIf="editTaskId === t.id" class="edit_buttons">
@@ -112,16 +113,7 @@
                     <div class="title">
 
                       <h4>{{ t.name }}</h4>
-        
-                      <div class="btns_tasks">
-                        <button class="btn_aux">
-                          <i class="fa-solid fa-pencil"></i>
-                        </button>
-            
-                        <button class="btn_aux">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </div>
+
                       </div>
                     <div class="tasks_info">
                       <p>{{t.description}}</p>

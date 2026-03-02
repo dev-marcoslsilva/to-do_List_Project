@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TaskService } from '../../services/task';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -11,7 +11,10 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './main-screen.html',
   styleUrl: './main-screen.css',
 })
-export class MainScreen implements OnInit {
+export class MainScreen implements OnInit, OnDestroy {
+
+  private intervalId: any;
+
   tasks: any[] = [];
   specialTasks: any[] = [];
   nextTask: any[] = [];
@@ -45,9 +48,15 @@ export class MainScreen implements OnInit {
   constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('Componente Iniciado. Loading está:', this.loading);
 
     this.loading = true;
+
+    this.intervalId = setInterval(() => {
+      this.currentDate = new Date();
+      this.cdr.detectChanges();
+    }, 1000);
+
+    
 
     forkJoin({
       general: this.loadingTasks(),
@@ -72,7 +81,26 @@ export class MainScreen implements OnInit {
     });
     this.searchConfig();
 
+    console.log("next Task:", this.nextTask);
+
+    this.current_name = this.nextTask[0].name;
+    this.current_deadline = this.nextTask[0].deadline;
+    this.current_cost = this.nextTask[0].cost;
+    this.current_description = this.nextTask[0].description;
+    this.current_status = this.nextTask[0].status;
+    this.current_id = this.nextTask[0].id;
+
   }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+
+  
+  
 
   
 
@@ -165,41 +193,51 @@ export class MainScreen implements OnInit {
     }
   }
 
-  onEditMode(id: number){
-    this.editTaskId = id;
-    this.editName = this.nextTask.find((task) => task.id === id)?.name || '';
-    this.editCost = this.nextTask.find((task) => task.id === id)?.cost || '';
-    this.editDeadline = this.nextTask.find((task) => task.id === id)?.deadline || '';
-    this.editDescription = this.nextTask.find((task) => task.id === id)?.description || '';
-    //por que não  this.editDescription = this.nextTask[id].description || ''; ?????????
+   onEditMode(id: number){
+     this.editTaskId = id;
+  //   this.editName = this.nextTask.find((task) => task.id === id)?.name || '';
+  //   this.editCost = this.nextTask.find((task) => task.id === id)?.cost || '';
+  //   this.editDeadline = this.nextTask.find((task) => task.id === id)?.deadline || '';
+  //   this.editDescription = this.nextTask.find((task) => task.id === id)?.description || '';
+
+  //   console.log("Descrição: ", this.editDescription);
   }
 
-  onDeleteTask(){
-    alert("Tem certeza que deseja")
+  onDeleteTask(id: number){
+
+    console.log("Cliquei no botão");
+    
+    if(confirm("Tem certeza que deseja excluir a tarefa?"))
+      this.taskService.deleteTask(id).subscribe({
+        next: (res: any) => {
+          console.log('Tarefa excluída com sucesso', res);
+          this.nextTask = this.nextTask.filter((task) => task.id !== id);
+          this.cdr.detectChanges();
+          console.log("Task: ", this.tasks);
+        },
+        error: (error: any) => {
+          console.error('Erro ao excluir a tarefa', error);
+        }
+      });
   }
 
   onSubmitEdit(id:number){
     console.log("Cliquei no Botão");
+    this.cdr.detectChanges();
 
-    const updatedTask = {
-      id: id,
-      name: this.editName,
-      deadline: this.editDeadline,
-      cost: this.editCost,
-      description: this.editDescription
-    };
+    
 
-    this.taskService.putTask(updatedTask.id, updatedTask).subscribe({
-      next: (res) => {
+   const task = this.tasks.find((task) => task.id === id);
+
+    console.log("dados editados: ", task);
+    
+
+    this.taskService.putTask(task.id, task).subscribe({
+      next: (res: any) => {
         console.log('Tarefa atualizada com sucesso', res);
-        // Atualize a tarefa na lista local
-        const index = this.nextTask.findIndex(task => task.id === id);
-        if (index !== -1) {
-          this.nextTask[index] = res;
-          this.cdr.detectChanges(); // Força a atualização da tela
-        }
+        
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Erro ao atualizar a tarefa', error);
       }
     });
