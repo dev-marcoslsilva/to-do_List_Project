@@ -59,13 +59,14 @@ nav{
 }
 
 .search_bar_div{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    width: 60%;
+    height: 80%;
     padding: 15px;
-    background-color: navy;
+    
 }
 
 #sideBar{
@@ -97,8 +98,9 @@ nav{
     width: 100%;
 }
 
-.red{
+.overdue_deadline{
     color : red;
+    border: red;
 }
 
 .dates_container{
@@ -146,7 +148,6 @@ nav{
     left: 0;
     width: 100%;
     background: white;
-    border: 5px solid #ddd;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 99;
@@ -154,20 +155,23 @@ nav{
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 200px;
+    max-height: 80%;
     overflow-y: auto;
     color: teal;
 }
 
-.suggestions-list li {
+.suggestions li {
     padding: 12px 15px;
-    cursor: pointer;
     transition: background 0.2s;
     color: #333;
+    border-top: var(--amarelo-laranja)  solid 1px;
+    border-bottom: var(--amarelo-laranja) 1px;
+    padding: 10px;
   }
   
-  .suggestions-list li:hover {
+  .suggestions li:hover {
     background-color: #f5f5f5;
+    cursor: pointer;
     color: #633D75; /* Seu roxo */
   }
 
@@ -195,7 +199,7 @@ nav{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-arround;
     width: 40%;
     padding: 5px;
     border-left: white solid 4px;
@@ -231,11 +235,11 @@ nav{
 }
 
 #nextTaskContainer{
-    height: 18vh;
+    height: 25vh;
     width: 100%;
     background-color: var(--amarelo-laranja);
     border-radius: 12px;
-    border: var(--amarelo-escuro) solid 2px;
+    border: white solid 2px;
 }
 
 #btnNewTask{

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { distinctUntilChanged, debounceTime, forkJoin } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { Task } from '../../interfaces/tasks.interfaces';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-main-screen',
@@ -12,7 +14,6 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './main-screen.css',
 })
 export class MainScreen implements OnInit, OnDestroy {
-
   private intervalId: any;
 
   tasks: any[] = [];
@@ -30,33 +31,30 @@ export class MainScreen implements OnInit, OnDestroy {
 
   editTaskId: number | null = null;
 
-
   suggestons: any[] = [];
-  
+  //completedTasks: any[] = [];
+
+  cloneTasks!: any[];
+
   currentIndex: number = 0;
 
-  current_name: string = '';
-  current_deadline: Date = new Date();
-  current_cost: Date = new Date();
-  current_description: string = '';
-  current_status: string = '';
-  current_id: number = 0;
+  currentTask!: Task;
+
 
   editMode: boolean = false;
   newName: string = '';
 
-  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) {}
+  constructor(private taskService: TaskService, 
+              private cdr: ChangeDetectorRef,
+              private router: Router) {}
 
   ngOnInit(): void {
-
     this.loading = true;
 
     this.intervalId = setInterval(() => {
       this.currentDate = new Date();
       this.cdr.detectChanges();
     }, 1000);
-
-    
 
     forkJoin({
       general: this.loadingTasks(),
@@ -65,11 +63,19 @@ export class MainScreen implements OnInit, OnDestroy {
     }).subscribe({
       next: (res: any) => {
         this.tasks = res.general;
+        this.cloneTasks = [...this.tasks];
         this.specialTasks = res.special;
         this.nextTask = res.next;
         this.loading = false;
 
-        console.log("Tarefas do dia: ", this.nextTask.length);
+        if (this.nextTask && this.nextTask.length > 0) {
+          console.log('next Task:', this.nextTask);
+
+          this.currentTask = this.nextTask[0];
+
+        }
+
+        console.log('Tarefas do dia: ', this.nextTask.length);
 
         this.cdr.detectChanges();
         console.log('Forcei a atualização da tela');
@@ -80,16 +86,6 @@ export class MainScreen implements OnInit, OnDestroy {
       },
     });
     this.searchConfig();
-
-    console.log("next Task:", this.nextTask);
-
-    this.current_name = this.nextTask[0].name;
-    this.current_deadline = this.nextTask[0].deadline;
-    this.current_cost = this.nextTask[0].cost;
-    this.current_description = this.nextTask[0].description;
-    this.current_status = this.nextTask[0].status;
-    this.current_id = this.nextTask[0].id;
-
   }
 
   ngOnDestroy(): void {
@@ -98,13 +94,6 @@ export class MainScreen implements OnInit, OnDestroy {
     }
   }
 
-
-  
-  
-
-  
-
-  
   loadingTasks() {
     return this.taskService.getTasks();
   }
@@ -131,8 +120,24 @@ export class MainScreen implements OnInit, OnDestroy {
   }
 
   selectSuggestion(suggestion: any) {
+    console.log("Suggestions: ", this.suggestons.length, this.suggestons);
     this.searchControl.setValue(suggestion.name, { emitEvent: false });
+    
+    console.log("Tarefas antes: ", this.tasks.length, this.tasks);
+    this.tasks = this.cloneTasks.filter((task) => task.id === suggestion.id);
+    console.log("Suggestions: ", this.suggestons);
+    console.log("Tarefas depois: ", this.tasks.length, this.tasks);
+    console.log("Tarefas: ", this.tasks);
+    console.log("Quantidade de Tarefas: ", this.tasks.length);
     this.suggestons = [];
+    this.cdr.detectChanges();
+  }
+
+  onCleanSearch() {
+    this.searchControl.setValue('', { emitEvent: false });
+    this.tasks = [...this.cloneTasks];
+    this.suggestons = [];
+    this.cdr.detectChanges();
   }
 
   onTaskToggledUp() {
@@ -140,27 +145,13 @@ export class MainScreen implements OnInit, OnDestroy {
     console.log('Valor atual de currentIndex:', this.currentIndex);
 
     if (this.currentIndex < this.nextTask.length - 1) {
-      console.log("Entrei no if");
 
-      this.current_id = this.nextTask[this.currentIndex + 1].id;
-      this.current_name = this.nextTask[this.currentIndex + 1].name;
-      this.current_deadline = this.nextTask[this.currentIndex + 1].deadline;
-      this.current_cost = this.nextTask[this.currentIndex + 1].cost;
-      this.current_description = this.nextTask[this.currentIndex + 1].description;
-      this.current_status = this.nextTask[this.currentIndex + 1].status;
+      this.currentTask! = this.nextTask[this.currentIndex + 1];
       this.currentIndex++;
-      console.log('Valor atual de currentIndex:', this.currentIndex);
     } else {
       this.currentIndex = 0;
 
-      this.current_id = this.nextTask[this.currentIndex].id;
-      this.current_name = this.nextTask[this.currentIndex].name;
-      this.current_deadline = this.nextTask[this.currentIndex].deadline;
-      this.current_cost = this.nextTask[this.currentIndex].cost;
-      this.current_description = this.nextTask[this.currentIndex].description;
-      this.current_status = this.nextTask[this.currentIndex].status;
-      
-      console.log('Valor atual de currentIndex:', this.currentIndex);
+      this.currentTask! = this.nextTask[this.currentIndex];
     }
   }
   onTaskToggledDown() {
@@ -168,86 +159,87 @@ export class MainScreen implements OnInit, OnDestroy {
     console.log('Valor atual de currentIndex:', this.currentIndex);
 
     if (this.currentIndex > 0) {
-      console.log("Entrei no if");
-      this.current_id = this.nextTask[this.currentIndex - 1].id;
-      this.current_name = this.nextTask[this.currentIndex - 1].name;
-      this.current_deadline = this.nextTask[this.currentIndex - 1].deadline;
-      this.current_cost = this.nextTask[this.currentIndex - 1].cost;
-      this.current_description = this.nextTask[this.currentIndex - 1].description;
-      this.current_status = this.nextTask[this.currentIndex - 1].status;
+
+      this.currentTask! = this.nextTask[this.currentIndex - 1];
       this.currentIndex--;
-      console.log('Valor atual de currentIndex:', this.currentIndex);
     } else {
       this.currentIndex = this.nextTask.length - 1;
-
-      console.log("Valor do currentIndex antes da operação: ", this.currentIndex);
-      
-      this.current_id = this.nextTask[this.currentIndex].id;
-      this.current_name = this.nextTask[this.currentIndex].name;
-      this.current_deadline = this.nextTask[this.currentIndex].deadline;
-      this.current_cost = this.nextTask[this.currentIndex].cost;
-      this.current_description = this.nextTask[this.currentIndex].description;
-      this.current_status = this.nextTask[this.currentIndex].status;
-
-      console.log('Valor atual de currentIndex:', this.currentIndex);
+      this.currentTask! = this.nextTask[this.currentIndex];
     }
   }
 
-   onEditMode(id: number){
-     this.editTaskId = id;
-  //   this.editName = this.nextTask.find((task) => task.id === id)?.name || '';
-  //   this.editCost = this.nextTask.find((task) => task.id === id)?.cost || '';
-  //   this.editDeadline = this.nextTask.find((task) => task.id === id)?.deadline || '';
-  //   this.editDescription = this.nextTask.find((task) => task.id === id)?.description || '';
-
-  //   console.log("Descrição: ", this.editDescription);
+  onEditMode(id: number) {
+    this.editTaskId = id;
   }
 
-  onDeleteTask(id: number){
+  onDeleteTask(id: number) {
+    console.log('Cliquei no botão');
 
-    console.log("Cliquei no botão");
-    
-    if(confirm("Tem certeza que deseja excluir a tarefa?"))
+    if (confirm('Tem certeza que deseja excluir a tarefa?'))
       this.taskService.deleteTask(id).subscribe({
         next: (res: any) => {
           console.log('Tarefa excluída com sucesso', res);
-          this.nextTask = this.nextTask.filter((task) => task.id !== id);
+          this.tasks = this.tasks.filter((task) => task.id !== id);
           this.cdr.detectChanges();
-          console.log("Task: ", this.tasks);
+          console.log('Task: ', this.tasks);
         },
         error: (error: any) => {
           console.error('Erro ao excluir a tarefa', error);
-        }
+        },
       });
   }
 
-  onSubmitEdit(id:number){
-    console.log("Cliquei no Botão");
+  onSubmitEdit(id: number) {
+    console.log('Cliquei no Botão');
     this.cdr.detectChanges();
 
-    
+    const task = this.tasks.find((task) => task.id === id);
 
-   const task = this.tasks.find((task) => task.id === id);
-
-    console.log("dados editados: ", task);
-    
+    console.log('dados editados: ', task);
 
     this.taskService.putTask(task.id, task).subscribe({
       next: (res: any) => {
         console.log('Tarefa atualizada com sucesso', res);
-        
       },
       error: (error: any) => {
         console.error('Erro ao atualizar a tarefa', error);
-      }
+      },
     });
 
     this.editTaskId = null;
   }
 
-
-  onCancelEdit(){
+  onCancelEdit() {
     this.editTaskId = null;
-    
+  }
+
+  onFinalizedTask(){
+    console.log('Cliquei no botão');
+    console.log('current id: ', this.currentTask.id);
+
+    if(confirm('Tem certeza que deseja concluir a tarefa:')){
+      this.taskService.toggleStatus(this.currentTask.id).subscribe({
+        next: ()=>{
+          console.log('Tarefa concluída com sucesso');
+          
+          this.ngOnInit();
+        }
+      })
+    }
+  }
+
+  onLogout(){
+    if (confirm("Tem certeza que deseja sair?")) {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
+  }
+
+  isOverdue(deadline: any, id:number) : boolean{
+    if(!deadline)
+      return false;
+
+
+    return new Date(deadline) < this.tasks.find((task)=> task.id === id).deadline;
   }
 }

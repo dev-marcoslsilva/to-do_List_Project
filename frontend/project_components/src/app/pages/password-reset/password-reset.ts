@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth';
+import { UserServices } from '../../services/user-services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class PasswordReset {
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private userServices: UserServices, private router: Router) {}
 
   onSubmit(){
     if (this.passwordForm.valid) {
@@ -28,7 +28,7 @@ export class PasswordReset {
       }
 
       // Call the AuthService to reset the password
-      this.authService.updatePassword(login!, password!).subscribe({
+      this.userServices.updatePassword(login!, password!, confirmPassword!).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },

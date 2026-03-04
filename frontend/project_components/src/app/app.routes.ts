@@ -4,12 +4,14 @@ import {UserRegister} from "./pages/user_register/user_register";
 import { PasswordReset } from './pages/password-reset/password-reset';
 import {NewTask} from './pages/new-task/new-task';
 import {MainScreen} from './pages/main-screen/main-screen';
+import { authGuard } from './auth-guard';
 
 export const routes: Routes = [
     {path: 'login', component: Login},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'register', component: UserRegister},
     {path: 'newPassword', component: PasswordReset},
-    {path: 'newTask', component: NewTask},
-    {path: 'Dashboard', component: MainScreen}
+
+    {path: 'newTask', component: NewTask, canActivate: [authGuard]},
+    {path: 'Dashboard', component: MainScreen, canActivate: [authGuard]},
 ];

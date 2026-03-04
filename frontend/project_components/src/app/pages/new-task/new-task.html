@@ -23,7 +23,7 @@
             <!-- esta div conterá o nome da tarefa. Ele é obrigatório -->
              <div>
                 <div class="input_label">
-                    <label for="Nome">Nome:</label>
+                    <label for="Nome">Nome*:</label>
                     <input formControlName="name" type="text" id="taskName" placeholder="Nome da tarefa" required>
                 </div>
              </div>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="input_label">
-                    <label for="Custo">Custo:</label>
+                    <label for="Custo">Custo (Quando você pretende terminar a tarefa): </label>
                     <input formControlName="cost" type="date" id="taskCost">
 
                 </div>
@@ -58,10 +58,12 @@
 
             <div>
                 <div class="input_label">
-                    <label for="Descrição">Descrição:</label>
+                    <label for="Descrição">Descrição*:</label>
                     <textarea formControlName="description" id="taskDescription" placeholder="Descrição da tarefa" required></textarea>
+                    <h6>Campos com * são obrigatórios</h6>
                 </div>
             </div>
+
 
             <!-- esta div conterá o botão de enviar -->
 

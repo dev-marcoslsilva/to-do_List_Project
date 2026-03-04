@@ -14,7 +14,7 @@
         </div>
         <div class="nav_infos">
           <div class="divTitle">
-              <h3>Olá, {{ name }}</h3>
+              <h2>Olá, {{ name }}</h2>
           </div>
           <div class="divTitle">
               <h3>Hoje é: {{ currentDate | date: 'dd/MM/yyyy HH:mm:ss'}}</h3>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="nav_buttons">
-          <button id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button (click)="onLogout()" class="btn_aux" id="btnLogout"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
       </nav>
     </header>
@@ -37,12 +37,15 @@
           <p>Carregando tarefas...</p>
         </div>
 
-        <div class="container_tasks" *ngFor= "let t of tasks">
+        <div class="container_tasks" *ngFor= "let t of tasks" [style.border-left]="isOverdue(t.deadline, t.id) ? '5px solid red' : 'none'">
           <div class="task" id="task{{t.id}}" *ngIf="loading === false && tasks.length > 0">
             <div class="title">
 
-              <h4 *ngIf="editTaskId != t.id && t.deadline < currentDate">{{ t.name }}</h4>
-              <h4 class="red" *ngIf="editTaskId != t.id && t.deadline >= currentDate"> {{ t.name }} laka</h4>
+              <h4 *ngIf="editTaskId != t.id"
+                  [style.border-left]="isOverdue(t.deadline, t.id) ? '5px solid red' : 'none'"
+                  [style.color]="isOverdue(t.deadline, t.id) ? 'red' : 'inherit'">
+                {{ t.name }}
+              </h4>
               <input *ngIf="editTaskId === t.id" type="text" name="" id="" [(ngModel)]="t.name">
 
               <div class="btns_tasks">
@@ -64,7 +67,16 @@
             <span [class]="'status-' + t.status">{{ t.status }}</span>
 
             <div class="dates_container" *ngIf="editTaskId === t.id">
+
+              <label for="">
+                Prazo: {{ t.deadline | date: 'dd/MM/yyyy' }}
+              </label>
               <input type="date" [(ngModel)]="t.deadline" id="inputDeadline">
+
+              <label for="">
+                Custo: {{ t.deadline | date: 'dd/MM/yyyy' }}
+              </label>
+
               <input type="date" [(ngModel)]=" t.cost" id="inputCost">   
             </div>
 
@@ -91,12 +103,15 @@
         <div class="suggestion_search">
           <div *ngIf="suggestons.length > 0" class="suggestions">
             <ul>
-              <li *ngFor="let s of suggestons" (click)="selectSuggestion(suggestons)">{{ s.name }}</li>
+              <li *ngFor="let s of suggestons" (click)="selectSuggestion(s)">{{ s.name }}</li>
             </ul>
           </div>
 
         </div>
-        <button id="btnSerach"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button *ngIf="tasks.length !== 1" id="btnSerach"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button *ngIf="tasks.length === 1" id="btnCancelSerach" (click)="onCleanSearch()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
 
       </div>
 
@@ -135,16 +150,19 @@
          </a>
 
          
-         <div id="nextTask">
              <!-- Finalmente, a próxima tarefa do dia! -->
              <div id="nextTask">
                 <h5>Próxima tarefa</h5>
+
+                
                 <div id="nextTaskContainer">
 
-                  <div class="nextTask" id="nextTask{{current_id}}" >
-                    <h4>{{current_name}}</h4>
-                    <p>{{current_description}}</p>
-                    <span >{{ current_status }}</span>
+                  <div class="container_tasks" id="nextTask{{ currentTask?.id }}" >
+                    <h4>{{currentTask?.name}}</h4>
+                    <div class="tasks_info">
+                      <p>{{ currentTask?.description }}</p>
+                    </div>
+                    <span >{{ currentTask?.status }}</span>
                   </div>
 
                   <p *ngIf="nextTask.length === 0"> Nenhuma tarefa para hoje! Aproveite seu dia :)</p>
@@ -156,7 +174,7 @@
                       <i class="fa-solid fa-angles-left"></i>
                     </button>
 
-                    <button id="btn_concludeTask">Concluir tarefa</button>
+                    <button (click)="onFinalizedTask()" id="btn_concludeTask">Concluir tarefa</button>
 
                     <button (click)="onTaskToggledUp()" id="btnNextTask">
                       <i class="fa-solid fa-angles-right"></i>
@@ -165,10 +183,7 @@
                 </div>
              </div>
              <!-- Uma div para guardar os botões de pular tarefa ou conclui-la -->
-             <div>
-
-             </div>
-        </div>
+        
       </div>
     </div>
   </body>
