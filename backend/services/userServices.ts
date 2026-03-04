@@ -97,9 +97,9 @@ export class ServicesUsers {
   
       const newHashedPassord = await bcrypt.hash(newPassword, 10);
   
-      return await user.update({password : newHashedPassord}); 
-    } catch (error) {
-      throw new Error("Não foi possível atualizar senha!");
+      return await user.update({senha : newHashedPassord}); 
+    } catch (error: any) {
+      throw new Error("Não foi possível atualizar senha!", error);
       
     }
   }

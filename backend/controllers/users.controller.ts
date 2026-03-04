@@ -61,10 +61,13 @@ export class UsersController{
         try { 
             const {login, newPassword, newPasswordConfirmed} = req.body;
 
+            console.log("Dados recebidos no Body:", req.body);
+
             await userUpdate.updateUserPassword(login, newPassword, newPasswordConfirmed);
 
             return res.status(200).json({message: "Senha atualizada com sucesso!"});
-        } catch (error) {
+        } catch (error: any) {
+            console.error("ERRO REAL NO BANCO:", error);
             return res.status(400).json({error: error.message});
         }
     }

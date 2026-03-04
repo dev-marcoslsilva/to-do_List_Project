@@ -178,22 +178,31 @@ export class TasksService {
 
   async putStatus(id: number, userId: number) {
     try {
-      const taskForUpdate = await Task.findOne({
+      // const taskForUpdate = await Task.findOne({
+      //   where: {
+      //     id: id,
+      //     id_user: userId,
+      //   },
+      // });
+
+      const taskForUpdate = await Task.update({
+        status: db.Sequelize.literal(`CASE WHEN status = 'Aberto' THEN 'Concluído' ELSE 'Aberto' END`)
+      }, {
         where: {
           id: id,
           id_user: userId,
-        },
+        }
       });
 
       if (!taskForUpdate) throw new Error("Tarefa não encontrada!");
 
-      const newStatus =
-        taskForUpdate.status == "Aberto" ? "Concluído" : "Aberto";
-      const isUpdated = await Task.update({ newStatus });
+      // const newStatus =
+      //   taskForUpdate.status == "Aberto" ? "Concluído" : "Aberto";
+      // const isUpdated = await Task.update({ newStatus });
 
-      return isUpdated;
+      return taskForUpdate;
     } catch (error) {
-      throw new Error("Não foi possível atualizar o status da tarefa!");
+      throw new Error("Não foi possível atualizar o status da tarefa! ", error);
     }
   }
 

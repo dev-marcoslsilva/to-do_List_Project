@@ -12,13 +12,13 @@ const userController = new UsersController;
 
 router.post('/newUser', userController.createUser);
 router.post('/login', userController.loginUser);
+router.put('/users/password', userController.updatePassword);
 
 router.use(authMiddleware);
 
 //Puts
 
 router.put('/users/me', userController.updateGeneralDatas);
-router.put('/users/password', userController.updatePassword);
 
 //Deletes
 

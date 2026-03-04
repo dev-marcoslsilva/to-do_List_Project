@@ -24,7 +24,7 @@ router.get('/tasks/special', tasksController.getOverdueOrFinalizedTasks);
 //Puts
 
 router.put('/tasks/:taskId', tasksController.updateGeneralTasks);
-router.patch('/tasks/updateStatus/:id', tasksController.updateStatus);
+router.patch('/tasks/updateStatus/:taskId', tasksController.updateStatus);
 
 
 //Deletes

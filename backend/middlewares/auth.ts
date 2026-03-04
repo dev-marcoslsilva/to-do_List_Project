@@ -18,7 +18,7 @@ export const authMiddleware = (
 ) => {
   //pega o token
 
-  //console.log("O segurança foi acionado para a rota:", req.url);
+  console.log("O segurança foi acionado para a rota:", req.url);
   const authHeader = req.headers.authorization;
 
   if (!authHeader) res.status(401).json({ error: "Token não fornecido!" });
