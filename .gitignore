@@ -1,5 +1,6 @@
 node_modules/
 dist/
 .env
-api_teste.http
+api_test.http
 *.log
+notas_para_mais_tarde.md

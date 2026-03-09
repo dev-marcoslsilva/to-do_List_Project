@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.git
+.gitignore
+api_test.http
+*.log
+notas_para_mais_tarde.md

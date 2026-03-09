@@ -1,0 +1,20 @@
+#importando o node
+FROM node:16-alpine
+
+#a pasta que vai ser utilizada dentro do container pra rodar o back
+WORKDIR /backend
+
+#copiando o package.json e o package-lock.json pra dentro do container, pra depois instalar as dependências
+COPY package*.json ./
+
+#instalando as dependências do projeto, usando o yarn
+RUN yarn install
+
+#copiando o restante dos arquivos do projeto pra dentro do container
+COPY . .
+
+#porta do back
+EXPOSE 3000
+
+#pra ligar o back
+CMD ["yarn", "dev"]
