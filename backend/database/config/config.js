@@ -1,8 +1,5 @@
 require('dotenv').config();
 
-console.log("Tentando conectar com o usuário:", process.env.DB_USER);
-console.log("No banco:", process.env.DB_NAME);
-
 module.exports = {
     development: {
       username: process.env.DB_USER,
