@@ -1,14 +1,16 @@
-FROM node:16-alpine
+FROM node:20-alpine
 
 WORKDIR /frontend
 
 COPY package*.json ./
+
+RUN npm config set fetch-retry-maxtimeout 120000
+RUN npm config set fetch-retries 5
 
 RUN npm install
 
 COPY . .
 
 EXPOSE 4200
-RUN npm install -g serve
-RUN npm run build  
-CMD ["serve", "-s", "build", "-l", "4200"]  
+
+CMD ["npm", "start"]  
