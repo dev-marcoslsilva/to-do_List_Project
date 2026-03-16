@@ -37,7 +37,7 @@ MYSQL_ROOT_PASSWORD=datapass
 JWT_TOKEN_PASS=pass
 
 ## Estrutura de pastas
-
+<pre>
 backend/ <br>
 |-@types <br>
 |-controllers <br>
@@ -50,12 +50,46 @@ backend/ <br>
 |-routes<br>
 |-services<br>
 -server.ts<br>
+</pre>
 
 ## Endpoints da API
+
+<h3>Tasks endpoints: </h3>
+
+- CREATE
+    - /tasks
+
+- GETS
+    - /tasks
+    - /tasks/search
+    - /tasks/daily
+    - /tasks/special
+
+- UPDATES
+    - /tasks/taskid:id 
+    - /tasks/updatestatus/taskid:id
+
+- DELETE
+    - /tasks/taskid:id
+
+<h3>Users endpoints: </h3>
+
+- CREATE
+    - /newuser
+    - /login
+    - users/password
+
+- UPDATE
+    - /users/me
+
+- DELETE
+    - /users/me
 
 ## Scripts disponíveis
 
 ## Contribuição
+
+Just me
 
 ## Licença
 
